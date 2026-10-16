@@ -11,11 +11,22 @@ ingredient to buy, was completely manual. I built Chow to keep my go-to recipes 
 scale them up or down, and walk out of the grocery store with the right amounts of everything.
 
 ## What it does
-- **Save recipes:** keep my most-used recipes in one place
-- **Scale servings:** adjust any recipe up or down and the ingredient amounts update
-- **Plan the week:** pick meals for the week ahead
-- **Generate a grocery list:** combine ingredients across the week's meals into one list
-  with the right quantities, so nothing gets forgotten
+- **Import recipes from a link:** paste a URL and Chow pulls in the name, photo,
+  servings, and ingredients automatically
+- **Scale servings:** set how many people you're cooking for and every quantity updates
+- **Plan the week:** drop recipes into lunch and dinner slots, Monday through Sunday,
+  each with its own serving count
+- **Generate a grocery list:** Chow combines ingredients across the whole week, adds up
+  duplicates (3 recipes with garlic → one line), and sorts everything by aisle:
+  produce, meat, dairy, pantry, frozen
+- **Add your own items:** manual additions survive when the list regenerates
+
+## How it works
+- **Recipe import** reads the structured recipe data (schema.org JSON-LD) that most
+  recipe sites embed, with a fallback to page metadata when it's missing
+- **An ingredient parser** turns lines like "1 ½ cups flour, sifted" into a quantity,
+  unit, and clean name, handling fractions, mixed numbers, and unit spellings
+- **Everything is stored on-device** with SwiftData. No account, no server
 
 ## How I built it
 I built Chow with [Rork](https://rork.com), an AI app builder. I iterated on prompts to design
@@ -31,5 +42,6 @@ first, but native SwiftUI made a huge difference in how smooth it felt, which is
 ultimately went with Rork.
 
 ## What's next
-- Instagram integration to save video recipes
-- Photo capture for recipes from cookbooks or handwritten cards
+- More Upload Methods: Instagram integration to save video recipes, photo capture for recipes from      cookbooks or handwritten cards
+- Smarter unit merging: right now "1 cup flour" and "2 tbsp flour" show up as
+  separate lines; converting units would combine them
